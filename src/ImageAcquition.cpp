@@ -1,4 +1,4 @@
-#include"ImageAcquition.h"
+#include"../includes/ImageAcquition.h"
 
 using namespace KOCREngine;
 //Constructor of the class ImageAcquition class, current directory

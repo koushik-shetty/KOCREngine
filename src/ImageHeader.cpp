@@ -1,7 +1,7 @@
-#include"ImageAcquition.h"
+#include "../includes/ImageHeader.h"
 
 
-using KOCREngine::ImageReader;define
+using KOCREngine::ImageReader;
 
 ///<summary>
 ///Constructor that sets the image name and reads the image
@@ -9,7 +9,7 @@ using KOCREngine::ImageReader;define
 ///The image is read from the
 ///current directory as that of the application or the System Temp directory.
 ///</summary>
-ImageReader(const std::string& imageName) : imageName(imageName),imageLoc() , imageStream(imageName)
+ImageReader(const std::string& imageName) : ImageReaderimageName(imageName),imageLoc() , imageStream(imageName)
 {
 	if(!getImage())
 		std::cout<<"Failed to get image\naborting operation..";
@@ -21,8 +21,8 @@ ImageReader(const std::string& imageName) : imageName(imageName),imageLoc() , im
 ///<summary>
 ///Constructor with image name and image path. Reads, Loads and stores it in memory.
 ///</summary>
-ImageReader::ImageReader(const std::string& imageName,const std::string& imageLoc)
-: imageName(imageName), imageLoc(imageLoc), imageStream(imageLoc+"\\"+imageLoc)
+ImageReader(const std::string& imageName,const std::string& imageLoc)
+: imageName(imageName), imageLoc(imageLoc), imageStream(imageLoc+"\\"+imageName)
 {
 	if(!getImage())
 		std::cerr<<"Failed to get image\naborting operation..";
@@ -131,6 +131,8 @@ bool ImageReader::getImage()
 	if((imageStream.rdstate() != std::ios::goodbit)
 		||	(imageStream.gcount() != imageWidth * imageHeight * 3)//or case is useless
 		status = false;
+#endif
+		
 #ifdef DBG
 		//status = false;
 	std::cerr << "data = " << imageStream.gcount()<<" "<<"\n";

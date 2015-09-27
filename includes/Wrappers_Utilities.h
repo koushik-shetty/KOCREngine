@@ -1,8 +1,13 @@
 #ifndef WRAP_UTIL
 #define WRAP_UTIL
+#include <cstdint>
+#include <string>
 
-
-#define PRINT_DBG(A,STR) #ifdef (A) std::cerr << #STR; #endif
+#define PRINT_DBG(STR,STREAM) do{ \
+	if(DEBUG) \
+	{ \
+		(STREAM) << "File : "<< __FILE__  << ", Line : " <<__LINE__ << ", msg : "<< #STR <<"\n";  \
+	}
 
 typedef uint8_t UC8;
 typedef char C8;
@@ -10,12 +15,12 @@ typedef uint32_t UI32;
 typedef int32_t PixelLoc_t;
 typedef int32_t I32;
 
-enum BITMAPOFFSET{  IMGWDT = 0x12				//Image width Location.
-							, IMGHGT = 0x16				//Image Height Location.
-							, IMGDATASIZE = 0x22		//Image Pixel array size.
-							, IMGBPP = 0x1C
-							, IMGOFFSET = 0x0A			//Image Pixel array offset.
-};
+enum BITMAPOFFSET{  IMGWDT = 0x12			//Image width Location.
+				, IMGHGT = 0x16				//Image Height Location.
+				, IMGDATASIZE = 0x22		//Image Pixel array size.
+				, IMGBPP = 0x1C
+				, IMGOFFSET = 0x0A			//Image Pixel array offset.
+			};
 
 
 enum BITMAPFIELDSSIZE{	 IMGWDTSZ = 0x04
