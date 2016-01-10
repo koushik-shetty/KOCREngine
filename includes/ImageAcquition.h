@@ -1,21 +1,21 @@
 #ifndef IMG_ACQ
 #define IMG_ACQ
 
-#include<iostream>
-#include<fstream>
-#include<stdint.h>
-//#include<windows.h>
+#include <iostream>
+#include <fstream>
+#include <stdint.h>
+//#include <windows.h>
 
-#include<vector>
-#include<exception>
-#include<utility>
-#include<memory>
+#include <vector>
+#include <exception>
+#include <utility>
+#include <memory>
 //#include<stdexception>
 //#include<wingdi.h>
 
 //Custom Headers
 
-#include"Wrappers_Utilities.h"
+#include "Wrappers_Utilities.h"
 
 namespace KOCREngine
 {

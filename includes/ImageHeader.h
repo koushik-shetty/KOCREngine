@@ -38,7 +38,7 @@ namespace KOCREngine
 
 		I32 imageHeight,
 			imageWidth;	// image height and width
-		std::unique_ptr<char> imageDataArray;		//This is the pointer to the array that will hold the data. Change to byte array.
+		std::unique_ptr<uint8_t[]> imageDataArray;		//This is the pointer to the array that will hold the data. Change to byte array.
 
 		bool getImage(); // Fetch image file and read the contents.
 
