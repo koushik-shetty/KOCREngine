@@ -92,7 +92,7 @@ bool ImageReader::getImage()
 
 
 
-	imageDataArray = unique_ptr<UC8[]>(new UC8[imageHeight * imageWidth * 4]);	//create an array of colour pixels(32 bit data).
+	imageDataArray = unique_ptr<UC8[]>(new UC8[imageHeight * imageWidth * 4]);	//create an array of colour PixelPoint(32 bit data).
 
 
 	imageStream.seekg(BITMAPOFFSET::IMGOFFSET,ios::beg);	//Set to the position of the bitmap pixel array locator.
@@ -147,7 +147,7 @@ bool ImageReader::getImage()
 ///Read a pixel data from the image buffer
 ///</summary>
 
-krgb ImageReader::readPixel(Pixels pxl)
+krgb ImageReader::readPixel(PixelPoint pxl)
 {
 	//UC8 * PixelData = reinterpret_cast<UC8*>(imageDataArray);
 
@@ -178,14 +178,11 @@ bool ImageReader::readImage(std::vector<colorUnit>& imageBuf, ImgFmt format)	//m
 
 	try{
 	for(I32 row = 0;row < imageHeight; row++)
-		for(I32 column = 0;column < imageWidth-1; column += 3)
-		{
-			imageBuf.emplace_back(
-									{	//Create a temporary "ColorUnit" struct.
-										{column, row}	// Temporary "Pixels" struct.
-										,readPixel({column, row})	//Temporary "krgb" struct.
-									}
-								);
+		for(I32 column = 0;column < imageWidth-1; column += 3){
+			imageBuf.emplace_back({	//Create a temporary "ColorUnit" struct.
+				{column, row}	// Temporary "PixelPoint" struct.
+				,readPixel({column, row})	//Temporary "krgb" struct.
+			});
 		}
 	status = true;std::cout << i;
 	}
@@ -232,7 +229,7 @@ bool ImageReader::readPartly(std::vector<colorUnit>& imageData,I32 xStart,I32 yS
 		{
 			imageData.push_back(
 									{	//Create a temporary "ColorUnit" struct.
-										{row,column}	// Temporary Pixels struct.
+										{row,column}	// Temporary PixelPoint struct.
 										,readPixel({row,column})	// Temporary "krgb" struct.
 									}
 								);

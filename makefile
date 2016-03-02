@@ -8,10 +8,10 @@ OBJS = ImageAcquition.o ImageHeader.o
 SRC = ImageAcquition.cpp ImageHeader.cpp
 
 #output directory
-BINDIR = /bin
+BINDIR = bin/
 
 #object directory
-OBJDIR = /objs
+OBJDIR = objs/
 
 #outputname
 TARGET = vt.exe
@@ -22,5 +22,14 @@ CFLAGS = -W -Wall -Wextra -pedantic -std=c++11
 #flasgs for assembly
 OFLAGS = -O3
 
-$(TARGET) : $(OBJDIR)/$(OBJS)
-	CC $(OFLAGS) $(OBJDIR)/$(OBJS) -o $(TARGET) 
+$(TARGET) : $(OBJDIR)$(OBJS)
+	CC $(OFLAGS) $(OBJDIR)$(OBJS) -o $(TARGET) 
+
+build: $(TARGET)
+
+clean: 
+	@rm -rf $(BINDIR)
+
+all: 
+	clean
+	build

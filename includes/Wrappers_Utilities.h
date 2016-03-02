@@ -1,6 +1,5 @@
 #ifndef WRAP_UTIL
 #define WRAP_UTIL
-#include <cstdint>
 #include <string>
 
 #define PRINT_DBG(STR,STREAM) do{ \
@@ -8,12 +7,6 @@
 	{ \
 		(STREAM) << "File : "<< __FILE__  << ", Line : " <<__LINE__ << ", msg : "<< #STR <<"\n";  \
 	}
-
-typedef uint8_t UC8;
-typedef char C8;
-typedef uint32_t UI32;
-typedef int32_t PixelLoc_t;
-typedef int32_t I32;
 
 enum BITMAPOFFSET{  IMGWDT = 0x12			//Image width Location.
 				, IMGHGT = 0x16				//Image Height Location.
@@ -47,11 +40,7 @@ class CharArrtoInt
 	CharArrtoInt(std::string&& str);
 };
 
-template<typename T>
-T arrElem(T*arr,int row,int col,int maxcol)
-{
-	return *(arr + (row)*(maxcol-1) +(col));
-}
+
 
 #endif // WRAP_UTIL
 

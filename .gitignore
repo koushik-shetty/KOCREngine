@@ -3,3 +3,6 @@ objs/
 *.exe
 *.o
 *.out
+GPATH
+GRTAGS
+GTAGS
