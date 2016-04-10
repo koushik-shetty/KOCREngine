@@ -15,7 +15,9 @@
 
 //Custom Headers
 
-#include "Wrappers_Utilities.h"
+#include "BitmapInfo.h"
+#include "Image.h"
+
 
 namespace KOCREngine
 {
@@ -27,12 +29,12 @@ namespace KOCREngine
 	{
 		const std::string imageName;		//image name
 		const std::string imageLocation;	//image location
-		UI32 imageHeight, imageWidth;	//image height and width
-		UI32 *imageDataArray;		//This is the pointer to the array that will hold the data
+		uint32_t imageHeight, imageWidth;	//image height and width
+		uint32_t *imageDataArray;		//This is the pointer to the array that will hold the data
 
 	public:
-		ImageAcquition(ImageReader& imageName);
-		ImageAcquition(ImageReader&& imageName);
+		ImageAcquition(Image& imageName);
+		ImageAcquition(Image&& imageName);
 		bool fillArray();
 	};
 
