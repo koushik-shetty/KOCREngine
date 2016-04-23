@@ -36,7 +36,11 @@ namespace KOCREngine{
 	inline uint32_t pointToIndex(PixelPoint pp, uint32_t width){
 		return pp.x + pp.y * width;
 	}
-
+	
+	inline uint64_t imageLength(prop_t prop) {
+		return prop.width * prop.height;	
+	}
+	
 	inline ImgFmt imageFormat(int16_t bits){
 		switch(bits){
 			case 0x8:	return ImgFmt::B8;
@@ -65,23 +69,43 @@ namespace KOCREngine{
 	///<summary>
 	///Iterator to the image data
 	///takes the image data
+	///assumes that the underlying 
 	///</summary>
-	struct PixelIterator : public std::bidirectional_iterator_tag{
-		// image_array& imageDataArray;
-		// int idx, offset;
+	struct PixelIterator : public std::random_access_iterator_tag{
+		krgb* pixel;
+		int idx;
+		uint64_t image_size; 
+		ImageInfo image_info;
 
-		// PixelIterator(image_array& imageData, ImgFmt format = ImgFmt::B24) : imageDataArray(imageData), idx(0) {
-		// 	offset = formatByteSize(format);
-		// }
+		PixelIterator(krgb* pixel, ImageInfo imageInfo)
+		: pixel(pixel)
+		, idx(0)
+		, image_info(imageInfo) {
+			image_size = imageLength(imageInfo.size);
+		}
 
-		// PixelIterator& operator ++() {
-		// 	idx += offset;
-		// 	return *this;
-		// }
-
-		// PixelIterator& operator *() {
-		// 	return 
-		// }
+		PixelIterator& operator ++() {
+			idx++;
+			return *this;
+		}
+		
+		PixelIterator& operator--() {
+			idx--;
+			return *this;
+		}
+		
+		PixelIterator& operator +=(int n) {
+			idx += n;
+			return *this; 
+		}
+		
+		PixelIterator& operator -=(int n) {
+			return operator+=(-1 * n);
+		}	
+		
+		krgb& operator *() {
+			return *(pixel + idx);				
+		}
 	};
 }
 

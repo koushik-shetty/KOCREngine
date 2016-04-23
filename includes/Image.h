@@ -13,24 +13,16 @@
 
 namespace KOCREngine
 {
-
-
-	struct ImageInfo {
-		std::string name;
-		prop_t size;
-		ImgFmt format;
-	};
-
 	///<summary>
 	/// This is the class that reads the image and stores the data.
 	/// This class acts as the interface to other modules to any image. The reading will be fast.
 	///</summary>
-	class Image	{
+	class Image {
 		//do not change the order of the declarations.
-		typedef PixelIterator Iterator;		  
-
-		image_array imageDataArray;		//This is the pointer to the array that will hold the data. Change to byte array.
-		ImageInfo imageInfo;
+		typedef PixelIterator iterator;
+		typedef const PixelIterator const_iterator;
+		image_array image_data_array;		//This is the pointer to the array that will hold the data. Change to byte array.
+		ImageInfo image_info;
 		bool getImage();
 
 	public:
@@ -44,21 +36,31 @@ namespace KOCREngine
 		///<  Rule of five(?), any-ways, type is only move(assign)able
 		Image& operator=(Image&& img);//only movable
 
-		bool readImage(std::vector<colorUnit>& imageData, ImgFmt format = ImgFmt::B24);
+		inline prop_t getProportion(){ return image_info.size; }
 
-		bool readPartly(std::vector<colorUnit>& imageData,I32 xStart,I32 yStart,I32 xEnd, I32 yEnd, ImgFmt format = ImgFmt::B24);
-
-		inline prop_t getProportion(){ return imageInfo.size; }
-
-		inline std::string getImageName(){return imageInfo.name;}  //returns image name
-
-		// inline krgb readPixel(PixelPoint loc); //read the data at the specified PixelPoint location.
-
-		// inline Iterator begin() {
-		// 	return Iterator{imageDataArray};
-		// }
-
+		inline std::string getImageName(){return image_info.name;}  //returns image name
+		
+		iterator begin() {
+			return PixelIterator{&image_data_array[0], image_info};
+		}
+		
+		const_iterator cbegin() {
+			return begin();
+		}
+		
+		iterator end() {
+			return PixelIterator{
+				image_data_array.get() + imageLength(image_info.size)
+				, image_info				
+			};
+		}
+		
+		const_iterator cend() {
+			return end();
+		}
+		
 		Image(const Image& ) = delete;	//this type is only move constructible
+		
 		Image& operator=(const Image&) = delete;	//this type is only moveable so delete the copy assignment op.
 
 		~Image()

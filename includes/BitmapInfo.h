@@ -37,4 +37,12 @@ struct prop_t{
 	int32_t width, height;
 };
 
+
+struct ImageInfo {
+	std::string name;
+	prop_t size;
+	ImgFmt format;
+};
+
+
 #endif // BITMAP_INFO_H
