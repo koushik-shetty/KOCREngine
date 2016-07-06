@@ -47,7 +47,7 @@ build: $(TARGET)
 
 .PHONY: clean
 clean: 
-	@rm -rf $(BINDIR) $(OD)
+	@rm -rf $(BINDIR)/** $(BINDIR)/*.* $(OD)/** $(OD)/*.*
 
 rebuild:
 	clean

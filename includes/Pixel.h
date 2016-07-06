@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <memory>
 #include <iterator>
+#include <cmath>
 
 #include "BitmapInfo.h"
+#define DIFF 30
 
 namespace KOCREngine{
 	
@@ -24,8 +26,22 @@ namespace KOCREngine{
 		uint8_t green;
 		uint8_t blue;
 		uint8_t alpha;
-	}; //image component holder;
-
+	}; //image pixel component holder;
+	
+	
+	inline bool operator==(const krgb& lhs, const krgb& rhs) {
+		auto diff = [](uint8_t a, uint8_t b) -> uint8_t {
+			return uint8_t(std::abs(a - b))
+		}
+		return diff(lhs.red, rhs.red) >  DIFF
+			|| diff(lhs.green, rhs.green) > DIFF
+			|| diff(lhs.blue, rhs.blue) > DIFF
+	} 
+	
+	inline bool operator!=(const krgb& lhs, const krgb& rhs) {
+		return !(lhs == rhs);	
+	}
+	
 	typedef std::unique_ptr<krgb[]> image_array;	
 	
 	struct colorUnit{
