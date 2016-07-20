@@ -1,15 +1,15 @@
 #ifndef __ENCAPSULATOR_H__
 #define __ENCAPSULATOR_H__
-#include "../include/ImageReader.h"
+#include "../include/Image.h"
 #include <memory>
 
 namespace KOCREngine {
 	
 	class Encapsulator {
-		std::unique_ptr<ImageReader> ImageReader;
+		std::unique_ptr<Image> Image;
 	public:
-		Encapsulator(const ImageReader& ir);
-		Encapsulator(ImageReader&& ir);
+		Encapsulator(const Image& ir);
+		Encapsulator(Image&& ir);
 	};
 
 }

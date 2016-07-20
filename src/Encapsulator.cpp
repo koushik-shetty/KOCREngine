@@ -1,6 +1,6 @@
 #include "../includes/Encapsulator.h"
-#include "../includes/ImageHeader.h"
+#include "../includes/Image.h"
 
-KOCREngine::Encapsulator(const ImageHeader& ir){
+KOCREngine::Encapsulator(const Image& ir){
 	
 }
